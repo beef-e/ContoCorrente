@@ -5,6 +5,4 @@ public class Correntista {
     int codiceUtente;
     int numeroConto;
     int PINConto;
-
-
 }
