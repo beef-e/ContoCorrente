@@ -23,13 +23,19 @@ public class Main {
                     int tent = codice.nextInt();
                     if (tent == correntista1.PINConto) {
                         conto1.menu();
+                        answ=0;
                     }else{
                         System.out.println("Si prega di inserire un numero valido");
                     }
                     break;
 
+                case 2:
+                    System.out.println("La funzione non è al momento disponibile. Si prega di riprovare più tardi");
+                    break;
+
                 default:
                     System.out.println("Il numero inserito non è valido");
+                    break;
             }
 
 

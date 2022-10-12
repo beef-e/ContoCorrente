@@ -4,7 +4,7 @@ public class ContoCorrente {
     int numeroConto;
     int FidoRim;
         //LastMovement
-    float saldo;
+    float saldo=100;
     int codIntestatario;
     int bloccato;
 
@@ -51,7 +51,36 @@ public class ContoCorrente {
     }
 
     public void FaiPrelievo(){
+        System.out.println("Selezionare l'importo che si desidera prelevare\nSono disponibili sul conto €" +saldo);
+        System.out.println("1) 20€\n2) 50€\n3) 100€\n4) 200€\n\n>>>");
+        Scanner minus=new Scanner(System.in);
+        int prelev=minus.nextInt();
 
+        switch (prelev){
+            case 1:
+                saldo=saldo-20;
+                System.out.println("Prelievo effettuato correttamente");
+                break;
+
+            case 2:
+                saldo=saldo-50;
+                System.out.println("Prelievo effettuato correttamente");
+                break;
+
+            case 3:
+                saldo=saldo-100;
+                System.out.println("Prelievo effettuato correttamente");
+                break;
+
+            case 4:
+                saldo=saldo-200;
+                System.out.println("Prelievo effettuato correttamente");
+                break;
+
+            default:
+                System.out.println("Qualcosa è andato storto, si prega di riprovare");
+                break;
+        }
     }
 
     public void VisSaldo(){
