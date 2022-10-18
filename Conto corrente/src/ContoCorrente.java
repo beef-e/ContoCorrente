@@ -2,8 +2,10 @@ import java.util.Scanner;
 
 public class ContoCorrente {
     int numeroConto;
-    int FidoRim;
-    float LastMovement[]= new float [3];
+    int FidoIniziale=3000;
+    float FidoRim=FidoIniziale;
+    final int n=3;
+    float LastMovement[]= new float [n];
     float saldo=100;
     int codIntestatario;
     int bloccato;
@@ -54,21 +56,39 @@ public class ContoCorrente {
 
     }
 
+    public void SpostaMovimenti(){
+        LastMovement[2]=LastMovement[1];
+        LastMovement[1]=LastMovement[0];
+    }
+
+    public void aggFido(int richiesta){
+        if (FidoRim+richiesta>=0){
+            float change=saldo+richiesta;
+            saldo=0;
+            FidoRim=FidoRim+change;
+            System.out.println("Prelievo effettuato correttamente\n");
+        }else{
+            System.out.println("Il movimento non può essere effettuato per mancanza di credito");
+        }
+    }
+
     public void FaiVersamento(){
         System.out.print("Si è selezionato di effettuare un versamento\nIl saldo disponibile è di €"+saldo +
                 "\nInserire di seguito l'importo che si desidera depositare\n>>>");
         Scanner imp= new Scanner(System.in);
         float vers= imp.nextFloat();
         saldo=saldo+vers;
+        SpostaMovimenti();
+        LastMovement[0]=vers;
         System.out.println("Versamento effettuato correttamente. Sono attualmente disponibili €"+saldo);
     }
 
     public void FaiPrelievo(){
 
-        int optprl1=20;
-        int optprl2=50;
-        int optprl3=100;
-        int optprl4=200;
+        int optprl1=-20;
+        int optprl2=-50;
+        int optprl3=-100;
+        int optprl4=-200;
 
         System.out.println("Selezionare l'importo che si desidera prelevare\nSono disponibili sul conto €" +saldo);
         System.out.print("1) 20€\n2) 50€\n3) 100€\n4) 200€\n\n>>>");
@@ -77,23 +97,47 @@ public class ContoCorrente {
 
         switch (prelev){
             case 1:
-                saldo=saldo-optprl1;
-                System.out.println("Prelievo effettuato correttamente\n");
+                if (saldo+optprl1<0){
+                    aggFido(optprl1);
+                }else{
+                    saldo=saldo+optprl1;
+                    SpostaMovimenti();
+                    LastMovement[0]=optprl1;
+                    System.out.println("Prelievo effettuato correttamente\n");
+                }
                 break;
 
             case 2:
-                saldo=saldo-optprl2;
-                System.out.println("Prelievo effettuato correttamente\n");
+                if (saldo+optprl2<0){
+                    aggFido(optprl2);
+                }else{
+                    saldo = saldo + optprl2;
+                    SpostaMovimenti();
+                    LastMovement[0] = optprl2;
+                    System.out.println("Prelievo effettuato correttamente\n");
+                }
                 break;
 
             case 3:
-                saldo=saldo-optprl3;
-                System.out.println("Prelievo effettuato correttamente\n");
+                if (saldo+optprl3<0){
+                    aggFido(optprl3);
+                }else{
+                    saldo = saldo + optprl3;
+                    SpostaMovimenti();
+                    LastMovement[0] = optprl3;
+                    System.out.println("Prelievo effettuato correttamente\n");
+                }
                 break;
 
             case 4:
-                saldo=saldo-optprl4;
-                System.out.println("Prelievo effettuato correttamente\n");
+                if (saldo+optprl4<0){
+                    aggFido(optprl4);
+                }else{
+                    saldo = saldo + optprl4;
+                    SpostaMovimenti();
+                    LastMovement[0] = optprl4;
+                    System.out.println("Prelievo effettuato correttamente\n");
+                }
                 break;
 
             default:
@@ -108,6 +152,12 @@ public class ContoCorrente {
     }
 
     public void VisMovimenti(){
+        System.out.println("Vengono di seguito visualizzati gli ultimi " +n +" movimenti operati sul conto");
 
+        for (int i = 0; i<n; i++){
+            if (LastMovement[i]!=0) {
+                System.out.println("" + LastMovement[i]);
+            }
+        }
     }
 }

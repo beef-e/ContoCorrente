@@ -26,6 +26,7 @@ public class Main {
                         answ=0;
                     }else{
                         System.out.println("Si prega di inserire un numero valido");
+                        answ=2;
                     }
                     break;
 
